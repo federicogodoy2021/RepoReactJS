@@ -1,8 +1,6 @@
 import {BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
-//Se importa bootstrap con componentes
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ItemListContainer from './container/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
@@ -18,7 +16,6 @@ function App() {
           <header className="App-header">
             <NavBar/>
           </header>
-          <img src={logo} className="App-logo" alt="logo" />  
         </div>
         <Routes>  
           <Route 
@@ -30,10 +27,10 @@ function App() {
           <Route 
             path="/detalle/:detalleId" 
             element={<ItemDetailContainer/>}/> 
+          <Route path="/*" element={<Navigate to="/"/>}/>
           <Route 
               path="/cart" 
               element={<Cart/>}/> 
-          <Route path="/*" element={<Navigate to="/"/>}/>
         </Routes>
     </BrowserRouter>
     </>

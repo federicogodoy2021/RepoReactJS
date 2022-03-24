@@ -15,20 +15,20 @@ useEffect(() => {
       setCount(props.stock)
       
     }})  
+  const cantidad =()=>{
+  console.log(count)}
+
   return (
     
     //Se renderizan dos botones para incrementar y disminuir la cantidad
-    <div>
+    <div style= {{display:'flex',flexDirection: 'column', alignItems: 'center'}}>
         <button onClick={() => setCount(count + 1)}>AGREGAR</button>
-        <br/>
-        <label>
+        <label style= {{textAlign:'center'}}>
           Cantidad de productos: 
-          <br/>
-          {count}
-        </label>
         <br/>
+          <ItemCount cant={cantidad}>{count}</ItemCount>
+        </label>
         <button onClick={() => setCount(count - 1)}>QUITAR</button>
-
     </div>
   )
   }

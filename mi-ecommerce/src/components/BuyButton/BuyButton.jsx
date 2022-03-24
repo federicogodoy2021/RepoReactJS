@@ -1,19 +1,12 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-
+/* import count from '../ItemCount/ItemCount'
+ */
 function BuyButton() {
-
-
-
-
-
-
-  return (
+/*   console.log(count)
+ */  return (
     <div>
-
-        <Button variant="success" onClick = {()=>{}} > COMPRAR</Button>
-
-
+        <Button variant="success" onClick = {()=>console.log(/* count */)}> Añadir al carrito</Button>
     </div>
   )
 }
