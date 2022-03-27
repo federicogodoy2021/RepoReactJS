@@ -1,10 +1,35 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
-import BuyButton from '../BuyButton/BuyButton'
+import React, { useState } from 'react'
+import { Button, Card } from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import ItemCount from '../ItemCount/ItemCount'
 
 
 
 function ItemDetail({producto}) {
+
+  const [onButton, setOnButton] = useState('button')
+
+  const onAdd = (cantidad) =>{
+    alert(`Ud. está intentando comprar: ${cantidad} Un.
+El valor total de su compra es: $${cantidad * producto.price}`)
+    setOnButton('on')
+  }
+  const GoToCart = () => {
+    return(
+      <Link to='/Cart'>
+        <Button variant="success">Ir al carrito</Button>
+      </Link>
+    )
+  }
+  const BuyMore = () => {
+    return(
+      <div>
+        <Link to='/detalle/'>
+          <Button variant="success">Continuar comprando</Button>
+        </Link>
+      </div>  
+    )
+  }
   return (
     <div>
         <Card style={{backgroundColor: 'darkgray'}}>
@@ -12,12 +37,26 @@ function ItemDetail({producto}) {
             <Card.Body>
               <p>{producto.title}</p>
               <p>{producto.description}</p>
-              <p>{producto.price}</p>
-              <div><BuyButton/></div>
+              <p>{`$${producto.price}`}</p>
+              <br />
+              {
+                onButton === 'button'?
+                <ItemCount stock={producto.stock} initial={1} onAdd={onAdd}/>
+                :
+                <>
+                  <div>
+                    <GoToCart/>
+                    <br />
+                    <br />
+                    <BuyMore/>
+                  </div>
+                </>
+              }
             </Card.Body>
         </Card>
     </div>
   )
-}
+  }
+  
 
 export default ItemDetail

@@ -14,7 +14,7 @@ useEffect(()=>{
     getItems
     .then(res => setProducto(res.find(prod => prod.id === detalleId)))
     .catch(err => console.log(err))
-    .finally(() => console.log("Finalizado OK"))
+    .finally(() => console.log("Promesa cumplida"))
 
 }, [])
 

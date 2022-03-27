@@ -33,7 +33,6 @@ return (
 
     <ul>  
         <ItemList productos = {products}/>
-        <Button variant="success" onClick = {()=>{}} > Detalle del producto</Button>
     </ul>
     
 
