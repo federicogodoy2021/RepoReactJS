@@ -2,18 +2,25 @@ import React, { useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import ItemCount from '../ItemCount/ItemCount'
-
+import useCartContext from '../../context/CartContext'
 
 
 function ItemDetail({producto}) {
 
-  const [onButton, setOnButton] = useState('button')
+  //Uso de datos importado por context
+  const {addToCart, cartList} = useCartContext()
 
   const onAdd = (cantidad) =>{
     alert(`Ud. está intentando comprar: ${cantidad} Un.
 El valor total de su compra es: $${cantidad * producto.price}`)
     setOnButton('on')
+    addToCart({...producto, cantidad: cantidad})
   }
+
+  console.log(cartList)
+
+  const [onButton, setOnButton] = useState('button')
+
   const GoToCart = () => {
     return(
       <Link to='/Cart'>

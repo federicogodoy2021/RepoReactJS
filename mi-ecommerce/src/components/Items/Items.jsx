@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Card, CardGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import ItemCount from '../ItemCount/ItemCount'
 
 function Items({producto}) {
 
@@ -24,8 +23,7 @@ function Items({producto}) {
               <br/>
             </Link>
             <div style= {{display:'flex',flexDirection: 'column', alignItems: 'center'}}>
-              <ItemCount stock={producto.stock} initial={1}/>
-              <br/>
+           <br/>
             </div>
           </Card.Footer>
         </Card>
