@@ -8,8 +8,8 @@ import { NavLink } from 'react-router-dom'
 
 function NavBar() {
   return (
-    <div className='navBar'>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
         <NavLink to='/'>Athom Sport Rosario</NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -32,7 +32,6 @@ function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets"style={{ fontSize:'24px' }}>Carrito</Nav.Link>
             <NavLink to='cart' className={(isActive) => isActive ? 'active':''}>
                 <Widget/>
             </NavLink>
@@ -40,9 +39,8 @@ function NavBar() {
         </Navbar.Collapse>
         </Container>
       </Navbar>
-    </div>      
 
-  )
+)
 }
 
 export default NavBar

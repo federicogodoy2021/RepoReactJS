@@ -4,30 +4,42 @@ const CartContext = createContext([])
 export const useCartContext = () => useContext(CartContext)
 
 
-function CartContextProvider({children}) {
+export function CartContextProvider ({children}) {
 
-const [cartList, setCartList] = useState([])
+const [cartList, setCartList] = useState([{}])
 
 const addToCart = (item) =>{
-    setCartList([...cartList, item])
+  setCartList([...cartList, item])
 }
 
-const emptyCart = (item) =>{
+const emptyCart = () =>{
     setCartList([])
 }
+
+
+
+/* const countSameProduct = (item) =>{
+
+    const sameProduct = cartList.find((item) => item.id === cartList.id)
+
+    if(sameProduct){
+        setCartList([...cartList, item.cantidad += item.cantidad])
+    }else{
+        setCartList([...cartList, item])
+    }
+console.log(item)
+} */
+
 
   return (
     <CartContext.Provider value={{
         cartList,
         addToCart,
-        emptyCart
+        emptyCart,
         }}>
 
-        { children }
+      { children }
 
     </CartContext.Provider>
   )
 }
-
-export default CartContextProvider
-

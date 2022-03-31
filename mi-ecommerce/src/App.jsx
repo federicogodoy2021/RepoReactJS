@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ItemListContainer from './container/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import Cart from './components/Cart/Cart';
-import CartContextProvider from './context/CartContext';
+import {CartContextProvider} from './context/CartContext';
 
 
 function App() {
@@ -13,12 +13,9 @@ function App() {
   return (
 <>
   <BrowserRouter>
-    <CartContextProvider>
-        <div className="App">
-          <header className="App-header">
-            <NavBar/>
-          </header>
-        </div>
+    <CartContextProvider >
+      <div className="App">
+       <NavBar/>
         <Routes>  
           <Route 
             path="/" 
@@ -34,6 +31,7 @@ function App() {
               path="/cart" 
               element={<Cart/>}/> 
         </Routes>
+      </div>
     </CartContextProvider>
   </BrowserRouter>
 </>
