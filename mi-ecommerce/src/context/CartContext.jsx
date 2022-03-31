@@ -28,7 +28,7 @@ const emptyCart = () =>{
         setCartList([...cartList, item])
     }
 console.log(item)
-} */
+}*/
 
 
   return (
