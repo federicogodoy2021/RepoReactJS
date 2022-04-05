@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import Widget from './Widget/Widget'
+import CartWidget from './Widget/CartWidget'
 import { NavLink } from 'react-router-dom'
 
 function NavBar() {
@@ -33,7 +33,7 @@ function NavBar() {
           </Nav>
           <Nav>
             <NavLink to='cart' className={(isActive) => isActive ? 'active':''}>
-                <Widget/>
+                <CartWidget/>
             </NavLink>
           </Nav>
         </Navbar.Collapse>

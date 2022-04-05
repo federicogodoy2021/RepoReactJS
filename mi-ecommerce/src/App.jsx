@@ -13,26 +13,26 @@ function App() {
   return (
 <>
   <BrowserRouter>
-    <CartContextProvider >
-      <div className="App">
-       <NavBar/>
-        <Routes>  
-          <Route 
-            path="/" 
-            element={<ItemListContainer/>}/>
-          <Route 
-            path="/type/:id" 
-            element={<ItemListContainer/>}/>
-          <Route 
-            path="/detalle/:detalleId" 
-            element={<ItemDetailContainer/>}/> 
-          <Route path="/*" element={<Navigate to="/"/>}/>
-          <Route 
-              path="/cart" 
-              element={<Cart/>}/> 
-        </Routes>
-      </div>
-    </CartContextProvider>
+      <CartContextProvider >
+        <div className="App">
+        <NavBar/>
+          <Routes>  
+            <Route 
+              path="/" 
+              element={<ItemListContainer/>}/>
+            <Route 
+              path="/type/:id" 
+              element={<ItemListContainer/>}/>
+            <Route 
+              path="/detalle/:detalleId" 
+              element={<ItemDetailContainer/>}/> 
+            <Route path="/*" element={<Navigate to="/"/>}/>
+            <Route 
+                path="/cart" 
+                element={<Cart/>}/> 
+          </Routes>
+        </div>
+      </CartContextProvider>
   </BrowserRouter>
 </>
         

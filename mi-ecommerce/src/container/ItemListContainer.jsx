@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
 import { getItems } from '../components/Items/store'
 import ItemList from '../components/ItemList/ItemList'
 import { useParams } from 'react-router-dom'
 
 
-function ItemListContainer(producto) {
+function ItemListContainer() {
 
     const [products, setProducts] = useState([])
     const {id} = useParams()
@@ -30,13 +29,10 @@ function ItemListContainer(producto) {
 
       
 return (
-
-    <ul>  
-        <ItemList productos = {products}/>
-    </ul>
-    
-
-  )
+<>
+  <ItemList productos = {products}/> 
+</>
+)
 }
 
 export default ItemListContainer
