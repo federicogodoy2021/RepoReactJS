@@ -1,0 +1,20 @@
+.cartWidget{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+}
+
+.qtyCart{
+    color: rgb(241, 48, 48);
+    margin-left: 10px;
+    text-decoration:none;
+}
+.qtyCart0{
+    display: none;
+}
+
+.cartIcon{
+    text-decoration:none;
+
+}

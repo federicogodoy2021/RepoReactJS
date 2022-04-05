@@ -1,0 +1,12 @@
+.qtyOfItems {
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+  }
+
+  .botonEliminar{
+    border-radius: 50px;
+    background-color: brown;
+    margin-left: 10px;
+  }

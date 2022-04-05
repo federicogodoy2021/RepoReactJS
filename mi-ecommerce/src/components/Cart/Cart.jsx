@@ -2,6 +2,7 @@ import { useCartContext } from '../../context/CartContext'
 import { Badge, ListGroup, Button } from 'react-bootstrap'
 import EmptyCartButton from './EmptyCartButton';
 import LegendsInCart from './LegendsInCart';
+import './Cart.css'
 
 function Cart() {
 
@@ -25,7 +26,10 @@ function Cart() {
               <h3>Precio:{`$${(prod.price * prod.cantidad)}.-`}</h3>
             </div>
             <Badge bg="primary" pill>
-              <h2>Unidades: {prod.cantidad}</h2><Button onClick={()=>removeItems(prod.id)}>X</Button>
+              <div className='qtyOfItems'>
+                <h2>Unidades: {prod.cantidad}</h2>
+                <Button className='botonEliminar' onClick={()=>removeItems(prod.id)}>Eliminar</Button>
+              </div>
             </Badge>
           </ListGroup.Item>
         </ListGroup>

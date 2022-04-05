@@ -32,7 +32,7 @@ function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <NavLink to='cart' className={(isActive) => isActive ? 'active':''}>
+            <NavLink to='cart' className={(isActive) => isActive ? 'active cartIcon':''} >
                 <CartWidget/>
             </NavLink>
           </Nav>
