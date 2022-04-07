@@ -12,9 +12,9 @@ function Items({producto}) {
           <Card.Footer>
             <Link to={`/detalle/${producto.id}`} style={{display:'flex',flexDirection: 'column', alignItems: 'center'}}>
               <div>
-                <div>{`${producto.title}`}</div>
-                <div>{`${producto.description}`}</div>
-                <div>{`${producto.price}`}</div>
+                <div><h2>{`${producto.title}`}</h2></div>
+                <div><h3>{`${producto.description}`}</h3></div>
+                <div><h2>{`$${producto.price}`}</h2></div>
               </div>
               <br/>
               <div>

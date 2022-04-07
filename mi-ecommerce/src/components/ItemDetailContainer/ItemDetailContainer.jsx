@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail'
-import { getItems } from '../Items/store'
+import {doc, getDoc, getFirestore} from 'firebase/firestore'
 
 function ItemDetailContainer() {
 
     const [producto, setProducto] = useState({})
     const {detalleId} = useParams()
     
-
-
 useEffect(()=>{
-    getItems
-    .then(res => setProducto(res.find(prod => prod.id === detalleId)))
-    .catch(err => console.log(err))
-    .finally(() => console.log("Promesa cumplida"))
+  
+  const db = getFirestore()
+  
+  const queryDoc = doc(db, 'items', detalleId)
+  getDoc(queryDoc)
+  
+  .then(res => setProducto({id: res.id, ...res.data()}))
 
-}, [])
+}, [detalleId])
 
   return (
     <div style= {{display:'flex',flexDirection: 'column', alignItems: 'center'}}>

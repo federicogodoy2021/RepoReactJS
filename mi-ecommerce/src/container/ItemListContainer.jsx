@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { getItems } from '../components/Items/store'
 import ItemList from '../components/ItemList/ItemList'
 import { useParams } from 'react-router-dom'
+import {collection, getDocs, getFirestore, limit, query, where} from 'firebase/firestore'
 
 
-function ItemListContainer() {
-
+function ItemListContainer() {  
     const [products, setProducts] = useState([])
+
     const {id} = useParams()
 
 
       useEffect(() =>{
-        if (id) {
-            getItems
-        .then(res => setProducts(res.filter(products => products.type === id)))
-        .catch((err) => {console.error(`Error: ${err}`)})
-        .finally(() => {console.log("Finalizado")})
+        const db = getFirestore()
 
-            
-        } else {
-            getItems
-        .then(res => setProducts(res))
-        .catch((err) => {console.error(`Error: ${err}`)})
-        .finally(() => {console.log("Finalizado")})
-        }
-    }, [id])
+        const queryCollection = collection(db, 'items')
 
+        const filterQuery = id ? query(queryCollection, where('type','==', id), limit(3)) : queryCollection
+        getDocs(filterQuery)
+        .then(resp => setProducts( resp.docs.map(producto => ({id: producto.id, ...producto.data()}))))
+        .catch((err) => {console.error(`Error: Algo ha fallado y no se han podido cargar los productos`)})
+        .finally(() => {console.log("Se han cargado todos los productos correctamente")})
+}, [id])
 
+console.log(products)
       
 return (
 <>

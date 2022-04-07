@@ -22,6 +22,7 @@ function Cart() {
             <div className="ms-2 me-auto">
               <div className="fw-bold">
                 <h1>{prod.title}</h1>
+                <h3>{prod.description}</h3>
               </div>
               <h3>Precio:{`$${(prod.price * prod.cantidad)}.-`}</h3>
             </div>
