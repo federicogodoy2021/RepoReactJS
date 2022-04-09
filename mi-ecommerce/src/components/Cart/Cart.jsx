@@ -3,13 +3,56 @@ import { Badge, ListGroup, Button } from 'react-bootstrap'
 import EmptyCartButton from './EmptyCartButton';
 import LegendsInCart from './LegendsInCart';
 import './Cart.css'
+import { addDoc, collection, documentId, getDocs, getFirestore, query, where, writeBatch } from 'firebase/firestore';
 
 function Cart() {
 
-  const {cartList,removeItems} = useCartContext()
+const {cartList,removeItems, finalPrice} = useCartContext()
 
+const createOrder = async (e)=> {
+  e.preventDefault()
 
+  let order = {}
 
+  order.buyer = {name: 'Federico', phone: '3415765751', email: 'federico@gmail.com'}
+
+  order.items = cartList.map(cartItems =>{
+    const id = cartItems.id
+    const nombre = cartItems.title
+    const precio = cartItems.price * cartItems.cantidad
+
+    return {id, nombre, precio}
+  })
+
+  order.total = finalPrice()
+
+  const db = getFirestore()
+  const queryCollection = collection(db, 'orders')
+
+//Crear orden
+await addDoc(queryCollection, order)
+  .then(({id}) => alert('El ID de su compra es ' + id))
+
+//Actulizar el stock luego de crear la orden
+  const queryUpdateById = await query(queryCollection,
+    where(documentId(), 'in', cartList.map(it => it.id)))
+
+    const batch = writeBatch(db)
+    await getDocs(queryUpdateById)
+    .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
+      stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad})))
+    .finally(() => console.log('Stock actualizado'))
+    
+    batch.commit()
+    
+    /* //Actualizar seteando un nuevo stock por ID (No funcional por el momento)
+     const queryUpdate = doc(db, 'items', '2Ex9iQah59T53SWpvz4a')
+      updateDoc(queryUpdate,{
+      stock:20
+    }) */
+
+}
+  
   return (
 
     <div>
@@ -38,8 +81,8 @@ function Cart() {
       <div>
         <LegendsInCart/>
       </div>
-
-      <EmptyCartButton/>
+      <EmptyCartButton/><br /><br />
+      <Button className='btn warning' onClick={createOrder}>Crear Orden</Button>
     </div>
 )
 }

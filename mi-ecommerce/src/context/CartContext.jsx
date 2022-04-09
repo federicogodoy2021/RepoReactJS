@@ -31,12 +31,23 @@ const removeItems =(id)=>{
   setCartList(newCartlist)
 }
 
+const finalPrice =()=>{
+return cartList.reduce((acum, prod) => acum + (prod.price * prod.cantidad), 0)
+}
+const finalQty =()=>{
+  return cartList.reduce((acum, prod) => acum += prod.cantidad, 0);
+
+  }
+
+
   return (
     <CartContext.Provider value={{
         cartList,
         addToCart,
         emptyCart,
-        removeItems
+        removeItems,
+        finalPrice,
+        finalQty
         }}>
       { children }
 

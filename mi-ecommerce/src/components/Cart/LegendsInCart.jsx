@@ -4,18 +4,13 @@ import { Link } from 'react-router-dom';
 import { useCartContext } from '../../context/CartContext'
 
 function LegendsInCart() {
-    const {cartList, emptyCart} = useCartContext()
-
-    const totalAmount = cartList.map(item => item.price * item.cantidad).reduce((prev, curr) => prev + curr, 0);
-
-    const totalQty = cartList.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
-
+    const {cartList, emptyCart, finalPrice, finalQty} = useCartContext()
 
     if(cartList.length > 0){  
         return(
         <>
-          <h1>Cantidad total de la productos: {`${totalQty}`}</h1>
-          <h1>Monto total a pagar: {`$${totalAmount}`}</h1>
+          <h1>Cantidad total de la productos: {`${finalQty()}`}</h1>
+          <h1>Monto total a pagar: {`$${finalPrice()}`}</h1>
         </>  
         )}
         else{      

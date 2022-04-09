@@ -21,9 +21,7 @@ function ItemListContainer() {
         .catch((err) => {console.error(`Error: Algo ha fallado y no se han podido cargar los productos`)})
         .finally(() => {console.log("Se han cargado todos los productos correctamente")})
 }, [id])
-
-console.log(products)
-      
+    
 return (
 <>
   <ItemList productos = {products}/> 

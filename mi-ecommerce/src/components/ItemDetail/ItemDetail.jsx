@@ -16,7 +16,6 @@ function ItemDetail({producto}) {
 El valor total de su compra es: $${cantidad * producto.price}`)
     setOnButton('on')
     addToCart({...producto, cantidad: cantidad})
-    console.log(cantidad)
 }
 
 
