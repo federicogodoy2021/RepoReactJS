@@ -4,10 +4,12 @@ import EmptyCartButton from './EmptyCartButton';
 import LegendsInCart from './LegendsInCart';
 import './Cart.css'
 import { addDoc, collection, documentId, getDocs, getFirestore, query, where, writeBatch } from 'firebase/firestore';
+import { useState } from 'react';
 
 function Cart() {
 
-const {cartList,removeItems, finalPrice} = useCartContext()
+const {cartList,removeItems, finalPrice, emptyCart} = useCartContext()
+const [id, setId] = useState(null)
 
 const createOrder = async (e)=> {
   e.preventDefault()
@@ -31,7 +33,7 @@ const createOrder = async (e)=> {
 
 //Crear orden
 await addDoc(queryCollection, order)
-  .then(({id}) => alert('El ID de su compra es ' + id))
+  .then(({id}) => setId(id))
 
 //Actulizar el stock luego de crear la orden
   const queryUpdateById = await query(queryCollection,
@@ -41,9 +43,12 @@ await addDoc(queryCollection, order)
     await getDocs(queryUpdateById)
     .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
       stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad})))
-    .finally(() => console.log('Stock actualizado'))
+    .catch(error => console.log(error))
+    .finally(() => emptyCart())
     
     batch.commit()
+
+
     
     /* //Actualizar seteando un nuevo stock por ID (No funcional por el momento)
      const queryUpdate = doc(db, 'items', '2Ex9iQah59T53SWpvz4a')
@@ -58,7 +63,7 @@ await addDoc(queryCollection, order)
     <div>
       {cartList.map(prod => 
       <div>
-        <ListGroup className="warning" key= {prod.id} as="ol" >
+        <ListGroup key= {prod.id} as="ul" >
           <ListGroup.Item
             as="li"
             className="d-flex justify-content-between align-items-start warning">
@@ -82,7 +87,8 @@ await addDoc(queryCollection, order)
         <LegendsInCart/>
       </div>
       <EmptyCartButton/><br /><br />
-      <Button className='btn warning' onClick={createOrder}>Crear Orden</Button>
+      {id && <label className='alert alert-success'>{`El ID de su compra es: ${(id)}`}</label>}
+      {cartList.length !== 0 ? <Button onClick={createOrder}>Finalizar Orden</Button> : <Button style={{display:"none"}}/>}
     </div>
 )
 }
