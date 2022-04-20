@@ -1,7 +1,7 @@
 import { useCartContext } from '../../context/CartContext'
-import { Badge, ListGroup, Button } from 'react-bootstrap'
-import EmptyCartButton from './EmptyCartButton';
-import LegendsInCart from './LegendsInCart';
+import { Badge, ListGroup, Button, Form, InputGroup } from 'react-bootstrap'
+import EmptyCartButton from './EmptyCartButton/EmptyCartButton';
+import LegendsInCart from './LegendsInCart/LegendsInCart';
 import './Cart.css'
 import { addDoc, collection, documentId, getDocs, getFirestore, query, where, writeBatch } from 'firebase/firestore';
 import { useState } from 'react';
@@ -10,13 +10,14 @@ function Cart() {
 
 const {cartList,removeItems, finalPrice, emptyCart} = useCartContext()
 const [id, setId] = useState(null)
+const [dataForm, setDataForm] = useState({name:'', lastName:'',email:'', phone:'', address:''})
 
 const createOrder = async (e)=> {
   e.preventDefault()
 
   let order = {}
 
-  order.buyer = {name: 'Federico', phone: '3415765751', email: 'federico@gmail.com'}
+  order.buyer = dataForm
 
   order.items = cartList.map(cartItems =>{
     const id = cartItems.id
@@ -34,28 +35,31 @@ const createOrder = async (e)=> {
 //Crear orden
 await addDoc(queryCollection, order)
   .then(({id}) => setId(id))
+  .catch(err => console.log(err))
+  .finally(() => emptyCart())
+
+
+
 
 //Actulizar el stock luego de crear la orden
   const queryUpdateById = await query(queryCollection,
     where(documentId(), 'in', cartList.map(it => it.id)))
 
     const batch = writeBatch(db)
+
     await getDocs(queryUpdateById)
     .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
       stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad})))
     .catch(error => console.log(error))
-    .finally(() => emptyCart())
+    .finally(() => console.log('Stock actualizado'))
     
     batch.commit()
 
+  
+}
 
-    
-    /* //Actualizar seteando un nuevo stock por ID (No funcional por el momento)
-     const queryUpdate = doc(db, 'items', '2Ex9iQah59T53SWpvz4a')
-      updateDoc(queryUpdate,{
-      stock:20
-    }) */
-
+const handleChange = (e) =>{
+  setDataForm({...dataForm, [e.target.name] : e.target.value})
 }
   
   return (
@@ -87,9 +91,87 @@ await addDoc(queryCollection, order)
         <LegendsInCart/>
       </div>
       <EmptyCartButton/><br /><br />
+
       {id && <label className='alert alert-success'>{`El ID de su compra es: ${(id)}`}</label>}
-      {cartList.length !== 0 ? <Button onClick={createOrder}>Finalizar Orden</Button> : <Button style={{display:"none"}}/>}
+      {cartList.length !== 0 ? <Button onClick={createOrder}>Finalizar Compra</Button> : <Button style={{display:"none"}}/>}
+
+      <div className='formCart'>
+        <h1>Datos de envío</h1>
+
+        <form 
+                className='mt-5'
+                onSubmit={createOrder}                 
+            >
+                <input 
+                    type='text' 
+                    name='name' 
+                    placeholder='name' 
+                    value={dataForm.name}
+                    onChange={handleChange}
+                /><br />
+                <input 
+                    type='text' 
+                    name='phone'
+                    placeholder='tel' 
+                    value={dataForm.phone}
+                    onChange={handleChange}
+                /><br/>
+                <input 
+                    type='email' 
+                    name='email'
+                    placeholder='email' 
+                    value={dataForm.email}
+                    onChange={handleChange}
+                /><br/>
+                <input 
+                    type='email' 
+                    name='email1'
+                    placeholder='repita email' 
+                    value={dataForm.email}
+                    onChange={handleChange}
+                /><br/>
+                
+                <button className="btn btn-outline-primary"  onClick={createOrder} >Terminar Compra</button>
+            </form>
+
+
+
+
+
+        {/* <Form onSubmit={createOrder}>
+            <Form.Group className="mb-3">
+                <Form.Label className='label'>Nombre</Form.Label>
+                <input type="text" onChange={handleChange} defaultValue={dataForm.name} placeholder="Ingrese su nombre" />
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Label className='label'>Apellido</Form.Label>
+                <input type="text" onChange={handleChange} defaultValue={dataForm.lastName} placeholder="Ingrese su apellido" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label className='label'>Email</Form.Label>
+                <input type="email" onChange={handleChange} defaultValue={dataForm.email} placeholder="Ingrese su email" />
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Label className='label'>Domicilio</Form.Label>
+                <input type="text" onChange={handleChange} defaultValue={dataForm.address} placeholder="Ingrese su calle y número" />
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Label className='label'>Telefono</Form.Label>
+                <input type="number" onChange={handleChange} defaultValue={dataForm.phone} placeholder="Ingrese su N° de telefono" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Guardar los datos para su proxima compra" />
+            </Form.Group>
+            <Button variant="primary" onClick={createOrder}>
+                Enviar Datos
+            </Button>
+        </Form> */}
+      
+      </div>
     </div>
+    
+
+
 )
 }
 

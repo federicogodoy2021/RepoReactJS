@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ItemList from '../components/ItemList/ItemList'
 import { useParams } from 'react-router-dom'
-import {collection, getDocs, getFirestore, limit, query, where} from 'firebase/firestore'
+import {collection, getDocs, getFirestore, limit, orderBy, query, where} from 'firebase/firestore'
 
 
 function ItemListContainer() {  
@@ -15,7 +15,7 @@ function ItemListContainer() {
 
         const queryCollection = collection(db, 'items')
 
-        const filterQuery = id ? query(queryCollection, where('type','==', id), limit(3)) : queryCollection
+        const filterQuery = id ? query(queryCollection, where('type','==', id)) : queryCollection
         getDocs(filterQuery)
         .then(resp => setProducts( resp.docs.map(producto => ({id: producto.id, ...producto.data()}))))
         .catch((err) => {console.error(`Error: Algo ha fallado y no se han podido cargar los productos`)})

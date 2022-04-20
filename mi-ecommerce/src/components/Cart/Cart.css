@@ -10,3 +10,16 @@
     background-color: brown;
     margin-left: 10px;
   }
+
+  .formCart{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    align-content: center;
+    
+}
+
+.label{
+    display: flex ;
+    align-content: flex-start;
+}
