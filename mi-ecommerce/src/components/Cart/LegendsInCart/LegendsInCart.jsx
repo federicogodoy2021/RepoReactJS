@@ -22,10 +22,8 @@ function LegendsInCart() {
                 <Button variant="success">Continuar comprando</Button>
               </Link>
             </div>
-          </>
-          
+          </>         
       )}
-
 }
 
 export default LegendsInCart

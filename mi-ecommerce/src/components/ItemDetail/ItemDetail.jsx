@@ -7,17 +7,13 @@ import {useCartContext} from '../../context/CartContext'
 
 function ItemDetail({producto}) {
 
-  //Uso de datos importados por context
   const {addToCart} = useCartContext()
   
 
   const onAdd = (cantidad) =>{
-    alert(`Ud. está intentando comprar: ${cantidad} Un.
-El valor total de su compra es: $${cantidad * producto.price}`)
     setOnButton('on')
     addToCart({...producto, cantidad: cantidad})
 }
-
 
   const [onButton, setOnButton] = useState('button')
 

@@ -26,7 +26,6 @@ const emptyCart = () =>{
 }
 
 const removeItems =(id)=>{
-
   const newCartlist = cartList.filter((itemToRemove) => itemToRemove.id !== id)
   setCartList(newCartlist)
 }
@@ -38,8 +37,6 @@ const finalQty =()=>{
   return cartList.reduce((acum, prod) => acum += prod.cantidad, 0);
 
   }
-
-
   return (
     <CartContext.Provider value={{
         cartList,

@@ -13,7 +13,13 @@
   display: flex;
   flex-direction: row;
 }
-
+.loading{
+  background-image: url('../src/imgs/loading-90.gif');
+  background-repeat: no-repeat;
+  width: 1392px;
+  height:700px;
+  background-size: cover;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

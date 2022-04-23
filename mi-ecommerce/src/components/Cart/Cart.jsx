@@ -1,6 +1,5 @@
 import { useCartContext } from '../../context/CartContext'
 import { Badge, ListGroup, Button, Form} from 'react-bootstrap'
-import EmptyCartButton from './EmptyCartButton/EmptyCartButton';
 import LegendsInCart from './LegendsInCart/LegendsInCart';
 import './Cart.css'
 import { addDoc, collection, documentId, getDocs, getFirestore, query, where, writeBatch } from 'firebase/firestore';
@@ -52,7 +51,6 @@ await addDoc(queryCollectionOrders, order)
     .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
       stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad})))
     .catch(error => console.log(error))
-    .finally(() => console.log('Stock actualizado'))
     
     batch.commit()
 }
@@ -95,11 +93,11 @@ const handleChange = (e) =>{
       <div>
         <LegendsInCart/>
       </div>
-      <EmptyCartButton/><br /><br />
+      {cartList.length === 0 ? <Button style={{display :"none"}}/> : <Button onClick={() => (setShowForm('none'), emptyCart())}>Limpiar Carrito</Button> }
+      <br /><br />
 
       {id && <label className='alert alert-success'>{`El ID de su compra es: ${(id)}`}</label>}
-{/*       {cartList.length === 0 ?  <Form style={{display : 'none'}}/> : () => showDataForm}
- */}      {cartList.length !== 0 ? <Button onClick={showDataForm} style={{display:showButton}} >Finalizar Compra</Button> : <Button style={{display:"none"}}/>}
+      {cartList.length !== 0 ? <Button onClick={showDataForm} style={{display:showButton}} >Finalizar Compra</Button> : <Button style={{display:"none"}}/>}
 
      
       <div className='formCart' style={{display:showForm}}>
@@ -117,7 +115,7 @@ const handleChange = (e) =>{
           <input type="email" name='email' onChange={handleChange} value={dataForm.email} placeholder="Ingrese su email"/>
           <Form.Label className='label'>Confirmación de email</Form.Label>
           <input type="email" name='email2' onChange={handleChange} value={dataForm.email2} placeholder="Repita su email"/>   
-          {((dataForm.email !== dataForm.email2) || (dataForm.email === '') || (dataForm.email2 === '') || (dataForm.address === '') || (dataForm.lastName === '') || (dataForm.name === '') || (dataForm.phone === '')) ? <div><br /><br /><h6>Corrobore los campos vacios y/o corfirmación de emails</h6></div> : <><br /><br /> <Button variant="primary" onClick={createOrder}>Enviar Datos</Button></>}
+          {((dataForm.email !== dataForm.email2) || (dataForm.email === '') || (dataForm.email2 === '') || (dataForm.address === '') || (dataForm.lastName === '') || (dataForm.name === '') || (dataForm.phone === '')) ? <div><br /><br /><h6>Corrobore campos vacios y/o corfirmación de emails</h6></div> : <><br /><br /> <Button variant="primary" onClick={createOrder}>Enviar Datos</Button></>}
           <br/><br/>
         </Form>
       </div>

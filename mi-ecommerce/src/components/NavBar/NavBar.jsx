@@ -15,7 +15,6 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Futbol" id="collasible-nav-dropdown">
               <NavDropdown.Item>
                 <NavLink to="type/insumo">Pelotas</NavLink>
               </NavDropdown.Item>
@@ -25,7 +24,6 @@ function NavBar() {
               <NavDropdown.Item>
                 <NavLink to="type/accesorio">Medias</NavLink>
               </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
           <Nav>
             <NavLink to='cart' className={(isActive) => isActive ? 'active cartIcon':''} >

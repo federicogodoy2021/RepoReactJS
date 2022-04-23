@@ -7,7 +7,7 @@ const [count, setCount] = useState(initial)
 
 useEffect(() => {
 
-  //Logica para setear la cantidad minima y maxima de productos basados en el stock de los mismos
+  //Seteo de cantidad minima y maxima de productos basados en el stock de los mismos
     if(count < 1){
       alert('La cantindad a comprar no puede ser menor a 1 unidad')
       setCount(initial)
@@ -21,10 +21,8 @@ useEffect(() => {
       onAdd(count)
 }
  
- 
   return (
     
-    //Se renderizan dos botones para incrementar y disminuir la cantidad
     <div style= {{display:'flex',flexDirection: 'column', alignItems: 'center'}}>
         <Button onClick={() => setCount(count + 1)}>AGREGAR</Button>
         <label style= {{textAlign:'center'}}>

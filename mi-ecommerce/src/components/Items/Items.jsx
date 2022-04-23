@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, CardGroup } from 'react-bootstrap'
+import { Button, Card, CardGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function Items({producto}) {
@@ -23,12 +23,13 @@ function Items({producto}) {
               <br/>
             </Link>
             <div style= {{display:'flex',flexDirection: 'column', alignItems: 'center'}}>
-           <br/>
+            <br/>
             </div>
           </Card.Footer>
         </Card>
       </CardGroup> 
     </div>
+    
   )
 }
 

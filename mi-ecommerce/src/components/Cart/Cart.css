@@ -2,23 +2,19 @@
     display:flex;
     flex-direction: row;
     align-items: flex-start;
-
-  }
-
-  .botonEliminar{
+}
+.botonEliminar{
     border-radius: 50px;
     background-color: brown;
     margin-left: 10px;
   }
 
-  .formCart{
+.formCart{
     display: flex;
     flex-direction:column;
     align-items: center;
     align-content: center;
-    
 }
-
 .label{
     display: flex ;
     align-content: flex-start;
