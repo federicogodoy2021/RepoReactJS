@@ -48,6 +48,8 @@ Uso de FireBase para persistencia de datos
 
 https://athomsport.netlify.app/
 
+![image](https://github.com/federicogodoy2021/Proyecto-Ecommerce-React/blob/main/mi-ecommerce/Gif/Athom%20Sport%20-%20Ecommerce%20.gif)
+
 ### Autor
 
 Federico Martín Godoy
